@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+
+</head>
+<body>
+	<div class="all" id="all">
+		<div class="box loading" id="loading">
+			<div class="meat">
+				<div class="qi_left"></div>
+				<div class="qi_center"></div>
+				<div class="qi_right"></div>
+			</div>
+			<div class="text">LOADING <span></span><span></span><span></span></div>
+			<div class="num">
+				<span id="num">0</span>%
+			</div>
+		</div>
+		<!-- 音乐 -->
+		<div class="yinle" >
+			<div class="yin hide" id="yin" style="opacity: 0;"></div>
+			<audio autoplay="autoplay" id="music" style="display: none;" >
+				<source src="media/bgm.mp3">
+				当前浏览器不支持audio
+			</audio>
+		</div>
+		<div class="box index hide" id="index">
+			<!-- logo -->
+			<div class="logo">一碗东坡肉</div>
+			<!-- text -->
+			<div class="text">
+				<p>聊美食</p>
+				<p>我是专业的</p>
+			</div>
+			<div class="circle">
+				<div class="circle1">
+					<div class="circle_1">
+						<div class="cong">
+								<div class="cong_img"></div>
+						</div>
+					</div>
+				</div>
+				<div class="circle2">
+					<div class="circle_2">
+						<div class="tang"><div class="tang_img"></div></div>
+						<div class="jiu"><div class="jiu_img"></div></div>
+						<div class="rou"><div class="rou_img"></div></div>
+						<div class="jiao"><div class="jiao_img"></div></div>
+					</div>
+				</div>
+				<div class="circle3">
+					<div class="circle_3"></div>
+				</div>
+			</div>
+			<div class="dpr"></div>
+			<!-- 跳转 -->
+			<a class="btn" onclick="footer_btn()">
+				<p>了解做法</p>
+				<span></span>
+				<span></span>
+			</a>
+		</div>
+		<div class="box about hide" id="about">
+			<!-- logo -->
+			<div class="about_logo">一碗东坡肉</div>
+			<div class="meat" id="about_bg" style="background-image: url(images/about_img01.png);"></div>
+			<div class="text">
+				<p>猪肉焯水，</p>
+				<p>切成大小适宜的方块。</p>
+				<p>肥瘦适当、层层肥瘦相间，比例接近。</p>
+				<p>——五花肉挑选经验</p>
+			</div>
+			<div class="text">
+				<p></p>
+				<p>用铁锅或者砂锅放入葱、姜、八角、肉皮朝下放入五花肉，倒入黄酒没过食材。</p>
+				<p>颗粒饱满、整齐完整、呈棕红色、夹边裂缝隙较大。</p>
+				<p>——八角挑选经验</p>
+			</div>
+			<div class="text">
+				<p></p>
+				<p>放入冰糖、老抽、盐大火煮开后，小火慢炖1.5小时大火收汁出锅！</p>
+				<p>晶体光泽、晶粒均匀不含杂质，呈白色或淡黄色半透明。</p>
+				<p>——冰糖挑选经验</p>
+			</div>
+			<div class="nav" id="nav">
+				<div class="list"><span></span></div>
+				<div class="list"><div class="dian"><span></span><span></span></div></div>
+				<div class="list">
+					<div class="dian"><span></span></div>
+					<div class="dian1">
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+			<a href="javascript:;" class="about_btn" onclick="footer_btn()">
+				<span></span><span></span>
+			</a>
+		</div>
+		<div class="box footer hide">
+			<div class="tittle">《猪肉颂》</div>
+			<p class="text">净洗铛，少著水，柴头罨烟焰不起。待他自熟莫催他，火候足时他自美。黄州好猪肉，价贱如泥土。</p>
+			<p class="text">贵者不肯吃，贫者不解煮，早晨起来打两碗，饱得自家君莫管。</p>
+			<p class="text">——苏轼</p>
+			<div class="footer_meat">
+				<div class="qi_left"></div>
+				<div class="qi_center"></div>
+				<div class="qi_right"></div>
+			</div>
+			<div class="bottom"></div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	// 文字适配
+	var html = document.documentElement
+	var widths = html.clientWidth
+	var fs = widths / 10
+	if(fs > 75){
+		fs = 75
+	}
+	html.style.fontSize = fs + 'px'
+	
+	// 进度
+	var num = document.getElementById('num')
+	var all = document.getElementById('all')
+	var boxsAll = all.querySelectorAll('.box')
+	console.log(boxsAll)
+	var m = 0
+	var screen_Index=0;
+	var touch_start_Y,touch_distance,canTouch=false;
+	
+	var stop = setInterval(function(){
+		m++
+		if(m >= 100){
+			m = 100
+			clearInterval(stop)
+			boxsAll[0].classList.add('screen_outUp')
+			boxsAll[1].classList.remove('hide')
+			yin.classList.remove('hide')
+			boxsAll[1].classList.add('screen_inDown')
+			setTimeout(function(){
+				boxsAll[0].classList.add('hide')
+				yin.style.opacity = 1
+				screen_Index=1;
+				canTouch=true;
+			},900)
+		}
+		num.innerHTML = m
+	},20)
+	// 音乐
+	var yin = document.getElementById('yin')
+	var music = document.getElementById('music')
+	var flag = 1
+	yin.onclick = function(){
+		if(flag){
+			music.pause()
+			yin.style.animationPlayState = 'paused'
+			flag = 0
+		}
+		else{
+			music.play()
+			yin.style.animationPlayState = 'running'
+			flag = 1
+		}
+	}
+	
+	// 删除元素特效
+	function removeDXandHide(obj){
+		obj.classList.remove("screen_outUp","screen_outDown","screen_inUp","screen_inDown","hide")
+	}
+	// 点击切换
+	function footer_btn(){
+		touchxiaye()
+	}
+	function touchxiaye(){
+		// 下一页
+		canTouch = false
+		removeDXandHide(boxsAll[screen_Index])
+		boxsAll[screen_Index].classList.add('screen_outUp')
+		removeDXandHide(boxsAll[++screen_Index])
+		boxsAll[screen_Index].classList.add('screen_inDown')
+		setTimeout(DXaccomplish,800)
+	}
+	
+	function touchshangye(){
+		// 上一页
+		canTouch = false
+		removeDXandHide(boxsAll[screen_Index])
+		boxsAll[screen_Index].classList.add('screen_outDown')
+		removeDXandHide(boxsAll[--screen_Index])
+		boxsAll[screen_Index].classList.add('screen_inUp')
+		setTimeout(DXaccomplish,800)
+	}
+	// 隐藏其它子元素
+	function DXaccomplish(){
+		for(var i=0;i<boxsAll.length;i++){
+			if(screen_Index == i)continue
+			boxsAll[i].classList.add('hide')
+		}
+		canTouch = true
+	}
+	
+	document.ontouchstart = function(event){
+		if(!canTouch)return
+		touch_start_Y = event.touches[0].pageY
+	}
+	document.ontouchmove = function(event){
+		if(!canTouch)return
+		touch_distance = touch_start_Y - event.touches[0].pageY
+	}
+	document.ontouchend = function(event){
+		if(!canTouch)return
+		if(Math.abs(touch_distance) > 150){
+			if(touch_distance > 0){
+				// 方向 ↑ 下一页
+				if(screen_Index == 3)return
+				touchxiaye()
+			}
+			else{
+				if(screen_Index == 1)return
+				touchshangye()
+			}
+		}
+		touch_distance = 0
+	}
+	
+	// about 切换
+	var nav = document.getElementById('nav')
+	var lists = nav.children
+	var about_bg = document.getElementById('about_bg')
+	var about = document.getElementById('about')
+	var texts = about.querySelectorAll('.text')
+	for(var i = 0;i<lists.length;i++){
+		lists[i].index = i
+		lists[i].onclick = function(){
+			for(var q=0;q<lists.length;q++){
+				lists[q].style.boxShadow = 'none'
+				texts[q].style.display = 'none'
+			}
+			this.style.boxShadow = '0px 0px 50px #eaf7af'
+			about_bg.style.backgroundImage = "url(images/about_img0"+(this.index+1)+".png)"
+			texts[this.index].style.display = 'block'
+		}
+	}
+</script>

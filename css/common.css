@@ -1,0 +1,21 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+body {
+  max-width: 10rem;
+  height: 16.09333333rem;
+  font-family: dpr;
+  margin: 0 auto;
+  user-select: none;
+}
+@font-face {
+  font-family: dpr;
+  src: url(../font/font-dpr.otf);
+}
